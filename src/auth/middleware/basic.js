@@ -11,17 +11,21 @@ const basicAuth = async (req, res, next) => {
       let encodedValue = headersParts.pop();
       let decodedValue = base64.decode(encodedValue);
       let [username, password] = decodedValue.split(":");
+      try{
       const user = await Users.findOne({ where: { username: username } })
       const validUser = await bcrypt.compare(password, user.password);
       if (validUser) {
        // next();
        res.status(200).json({ user });
       } else {
-        res.status(401).send("Unauthorized: Invalid username or password");
+        throw new Error("Unauthorized: Invalid username or password");
       }
-    } else {
-      res.status(401).send("Unauthorized: No username or password provided");
-    }
-  };
+    } 
+      catch (error) { res.status(403).send('Invalid Login'); }
+  };}
 
 module.exports=basicAuth;
+
+
+
+

@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const AuthRouter = express.Router();
 const base64 = require('base-64');
@@ -5,8 +6,6 @@ const bcrypt = require('bcrypt');
 const {Users} = require('../models/ index');
 const basicAuth = require('../middleware/basic');
 // app.use(express.urlencoded({ extended: true }));
-
-
 
 
 AuthRouter.post('/signup', async (req, res) => {
@@ -26,6 +25,7 @@ AuthRouter.post('/signup', async (req, res) => {
 
 AuthRouter.post('/signin', basicAuth, (req, res) => {
     //res.status(200).json({ users});
+    
   });
 
 
@@ -33,15 +33,6 @@ AuthRouter.post('/signin', basicAuth, (req, res) => {
  
 
 module.exports = AuthRouter;
-
-
-//#############################################################################################//
-
-
-  
-
-
-
 
 
 
